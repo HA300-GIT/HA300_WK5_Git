@@ -1,0 +1,13 @@
+{
+  "role": {
+    "name": "default_access_role",
+    "schema_roles": [
+      {
+        "schema_reference": "HA300_WK5_GIT_HDI_HDB_GIT_1",
+        "names": [
+          "admin"
+        ]
+      }
+    ]
+  }
+}

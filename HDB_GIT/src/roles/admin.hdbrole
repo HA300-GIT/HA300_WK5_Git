@@ -1,0 +1,27 @@
+{
+  "role": {
+    "name": "admin",
+    "schema_privileges": [
+      {
+        "reference": "HA300_WK5_GIT_HDI_HDB_GIT_1",
+        "privileges": [
+          "DELETE",
+          "INSERT",
+          "SELECT",
+          "SELECT CDS METADATA",
+          "SELECT METADATA",
+          "UPDATE",
+          "CREATE TEMPORARY TABLE"
+        ]
+      }
+    ],
+    "schema_analytic_privileges": [
+      {
+        "schema_reference": "HA300_WK5_GIT_HDI_HDB_GIT_1",
+        "privileges": [
+          "Data_ana_privilege"
+        ]
+      }
+    ]
+  }
+}
