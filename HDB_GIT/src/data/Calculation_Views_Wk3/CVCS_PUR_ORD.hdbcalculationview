@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVCS_PUR_ORD" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" cacheInvalidationPeriod="NONE" enforceSqlExecution="false" hierarchiesSQLEnabled="true">
+<descriptions defaultDescription="Purchase Orders"/>
+<localVariables>
+  <variable id="IP_TGT_CURR" parameter="true">
+    <descriptions defaultDescription="Target currency for conversion"/>
+    <variableProperties datatype="NVARCHAR" length="3" mandatory="true" defaultValue="USD">
+      <valueDomain type="Currency"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="PO.Header">
+    <resourceUri>PO.Header</resourceUri>
+  </DataSource>
+  <DataSource id="PO.Item">
+    <resourceUri>PO.Item</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="PO" cardinality="C1_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="PURCHASEORDERID" aggregationType="sum"/>
+      <viewAttribute id="HISTORY_CHANGEDAT"/>
+      <viewAttribute id="PARTNER_PARTNERID" aggregationType="sum"/>
+      <viewAttribute id="PRODUCT_PRODUCTID"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="GROSSAMOUNT_TGT_CURR" aggregationType="sum"/>
+    
+      <viewAttribute id="GROSSAMOUNT_ORI_CURR" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="PO.Header">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PURCHASEORDERID" source="PURCHASEORDERID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="HISTORY_CHANGEDAT" source="HISTORY.CHANGEDAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER_PARTNERID" source="PARTNER.PARTNERID"/>
+    </input>
+    <input node="PO.Item">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_PRODUCTID" source="PRODUCT.PRODUCTID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT_TGT_CURR" source="GROSSAMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT_ORI_CURR" source="GROSSAMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PURCHASEORDERID" source="HEADER.PURCHASEORDERID"/>
+    </input>
+    <joinAttribute name="PURCHASEORDERID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="PO">
+  <attributes>
+    <attribute id="PURCHASEORDERID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Purchase Order ID"/>
+      <keyMapping columnObjectName="PO" columnName="PURCHASEORDERID"/>
+    </attribute>
+    <attribute id="HISTORY_CHANGEDAT" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Last Update Date"/>
+      <keyMapping columnObjectName="PO" columnName="HISTORY_CHANGEDAT"/>
+    </attribute>
+    <attribute id="PARTNER_PARTNERID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Partner Association"/>
+      <keyMapping columnObjectName="PO" columnName="PARTNER_PARTNERID"/>
+    </attribute>
+    <attribute id="PRODUCT_PRODUCTID" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Product"/>
+      <keyMapping columnObjectName="PO" columnName="PRODUCT_PRODUCTID"/>
+    </attribute>
+    <attribute id="CURRENCY_1" order="5" displayAttribute="false" attributeHierarchyActive="false" semanticType="empty">
+      <descriptions defaultDescription="Currency"/>
+      <keyMapping columnObjectName="PO" columnName="CURRENCY"/>
+    </attribute>
+    <attribute id="PRODUCT_PRODUCTID$local">
+      <descriptions defaultDescription="Product"/>
+      <keyMapping columnObjectName="PO" columnName="PRODUCT_PRODUCTID"/>
+    </attribute>
+    <attribute id="PARTNER_PARTNERID$local">
+      <descriptions defaultDescription="Partner Association"/>
+      <keyMapping columnObjectName="PO" columnName="PARTNER_PARTNERID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="GROSSAMOUNT_ORI_CURR" order="6" semanticType="amount" aggregationType="sum" measureType="amount">
+      <descriptions defaultDescription="Gross Amount_Original curr"/>
+      <unitCurrencyAttribute attributeName="CURRENCY_1"/>
+      <measureMapping columnObjectName="PO" columnName="GROSSAMOUNT_ORI_CURR"/>
+    </measure>
+    <measure id="GROSSAMOUNT_TGT_CURR" order="7" semanticType="amount" aggregationType="sum" measureType="amount" unconverted="false">
+      <descriptions defaultDescription="GROSSAMOUNT_TGT_CURR"/>
+      <unitCurrencyAttribute attributeName="GROSSAMOUNT_TGT_CURR_CURRENCY"/>
+      <currencyConversion errorHandling="keepUnconverted" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="GROSSAMOUNT_TGT_CURR_CURRENCY" convert="true" accuracy="COMPATIBILITY" method="ERP" lookup="REGULAR">
+        <client>
+          <value>001</value>
+        </client>
+        <currencyConversionTables rates="Conversions.TCURR" configuration="Conversions.TCURV" prefactors="Conversions.TCURF" notations="Conversions.TCURN" precisions="Conversions.TCURX"/>
+        <outputDataType datatype="DECIMAL" length="15" scale="2"/>
+        <sourceCurrency>
+          <attribute attributeName="CURRENCY_1"/>
+        </sourceCurrency>
+        <erpDecimalShift>true</erpDecimalShift>
+        <targetCurrency>
+          <localVariable>IP_TGT_CURR</localVariable>
+        </targetCurrency>
+        <referenceDate>
+          <attribute attributeName="HISTORY_CHANGEDAT"/>
+        </referenceDate>
+        <exchangeRateType>1001</exchangeRateType>
+      </currencyConversion>
+      <measureMapping columnObjectName="PO" columnName="GROSSAMOUNT_TGT_CURR"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="DCV_Products">
+      <attributes>
+        <attributeRef>PRODUCT_PRODUCTID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>PRODUCTID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="C1_1" joinType="inner" joinOperator="Equal"/>
+      <associatedAttributeFeatures>
+        <attributeReference attributeName="CITY" hidden="true"/>
+        <attributeReference attributeName="POSTALCODE" hidden="true"/>
+        <attributeReference attributeName="STREET" hidden="true"/>
+        <attributeReference attributeName="BUILDING" hidden="true"/>
+      </associatedAttributeFeatures>
+      <associatedHierarchyFeature hierarchyName="PRD_LEVEL_HIER">
+        <joinProperties nodeElementName="PRD_LEVEL_HIERnode" expressionParameterName="PRD_LEVEL_HIERexpr"/>
+      </associatedHierarchyFeature>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="DCV_BP">
+      <attributes>
+        <attributeRef>PARTNER_PARTNERID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>PARTNERID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="C1_1" joinType="inner" joinOperator="Equal"/>
+      <associatedAttributeFeatures>
+        <attributeReference alias="PARTNERID_1" attributeName="PARTNERID"/>
+        <attributeReference alias="COMPANYNAME_1" attributeName="COMPANYNAME"/>
+        <attributeReference attributeName="FIRST_NAME" hidden="true"/>
+        <attributeReference attributeName="LAST_NAME" hidden="true"/>
+        <attributeReference attributeName="EMAIL" hidden="true"/>
+      </associatedAttributeFeatures>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="PO" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="286"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="PO.Header" modelObjectNameSpace="PO" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="278"/>
+    </shape>
+    <shape modelObjectName="PO.Item" modelObjectNameSpace="PO" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="424" y="30"/>
+      <rectangleSize width="246"/>
+    </shape>
+    <shape modelObjectName="PO" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="DCV_Products" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="172"/>
+    </shape>
+    <shape modelObjectName="DCV_BP" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="172"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

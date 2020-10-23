@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" id="CVD_FND_EMP" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CVD_FND_EMP"/>
+<localVariables/>
+<variableMappings/>
+<dataSources/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:TableFunctionView" id="TableFunction_1" tableFunctionName="TF_FUZ_EMPLOYEES">
+    <viewAttributes/>
+    <calculatedViewAttributes/>
+    <variableMapping xsi:type="Variable:ConstantVariableMapping" value="SMIHT">
+      <targetVariable name="LASTNAMEFILTER"/>
+    </variableMapping>
+  </calculationView>
+</calculationViews>
+<logicalModel id="TableFunction_1">
+  <attributes>
+    <attribute id="SEX" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SEX"/>
+      <keyMapping columnObjectName="TableFunction_1" columnName="SEX"/>
+    </attribute>
+    <attribute id="NAME_LAST" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NAME.LAST"/>
+      <keyMapping columnObjectName="TableFunction_1" columnName="NAME.LAST"/>
+    </attribute>
+    <attribute id="NAME_FIRST" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NAME.FIRST"/>
+      <keyMapping columnObjectName="TableFunction_1" columnName="NAME.FIRST"/>
+    </attribute>
+    <attribute id="EMAILADDRESS" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="EMAILADDRESS"/>
+      <keyMapping columnObjectName="TableFunction_1" columnName="EMAILADDRESS"/>
+    </attribute>
+    <attribute id="LANGUAGE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LANGUAGE"/>
+      <keyMapping columnObjectName="TableFunction_1" columnName="LANGUAGE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="TableFunction_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="105" y="227"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

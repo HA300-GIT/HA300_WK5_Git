@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CCV_SJ_PURCHASE_ORDERS" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="PURCHASE_ORDERS WITH PRODUCT AND BP"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="PO.Header">
+    <resourceUri>PO.Header</resourceUri>
+  </DataSource>
+  <DataSource id="PO.Item">
+    <resourceUri>PO.Item</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="PO" cardinality="C1_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="PURCHASEORDERID" aggregationType="sum"/>
+      <viewAttribute id="HISTORY_CHANGEDAT"/>
+      <viewAttribute id="PARTNER_PARTNERID" aggregationType="sum"/>
+      <viewAttribute id="PRODUCT_PRODUCTID"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="GROSSAMOUNT" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="PO.Header">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PURCHASEORDERID" source="PURCHASEORDERID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="HISTORY_CHANGEDAT" source="HISTORY.CHANGEDAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER_PARTNERID" source="PARTNER.PARTNERID"/>
+    </input>
+    <input node="PO.Item">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_PRODUCTID" source="PRODUCT.PRODUCTID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT" source="GROSSAMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PURCHASEORDERID" source="HEADER.PURCHASEORDERID"/>
+    </input>
+    <joinAttribute name="PURCHASEORDERID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="PO">
+  <attributes>
+    <attribute id="PURCHASEORDERID" order="1" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Purchase Order ID"/>
+      <keyMapping columnObjectName="PO" columnName="PURCHASEORDERID"/>
+    </attribute>
+    <attribute id="HISTORY_CHANGEDAT" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Last Update Date"/>
+      <keyMapping columnObjectName="PO" columnName="HISTORY_CHANGEDAT"/>
+    </attribute>
+    <attribute id="PARTNER_PARTNERID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Partner Association"/>
+      <keyMapping columnObjectName="PO" columnName="PARTNER_PARTNERID"/>
+    </attribute>
+    <attribute id="PRODUCT_PRODUCTID" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Product"/>
+      <keyMapping columnObjectName="PO" columnName="PRODUCT_PRODUCTID"/>
+    </attribute>
+    <attribute id="CURRENCY_1" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Currency"/>
+      <keyMapping columnObjectName="PO" columnName="CURRENCY"/>
+    </attribute>
+    <attribute id="PRODUCT_PRODUCTID$local">
+      <descriptions defaultDescription="Product"/>
+      <keyMapping columnObjectName="PO" columnName="PRODUCT_PRODUCTID"/>
+    </attribute>
+    <attribute id="PARTNER_PARTNERID$local">
+      <descriptions defaultDescription="Partner Association"/>
+      <keyMapping columnObjectName="PO" columnName="PARTNER_PARTNERID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="GROSSAMOUNT" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Gross Amount"/>
+      <measureMapping columnObjectName="PO" columnName="GROSSAMOUNT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="DCV_Products">
+      <attributes>
+        <attributeRef>PRODUCT_PRODUCTID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>PRODUCTID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="C1_1" joinType="inner" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+    <logicalJoin associatedObjectUri="DCV_BP">
+      <attributes>
+        <attributeRef>PARTNER_PARTNERID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>PARTNERID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="C1_1" joinType="inner" joinOperator="Equal"/>
+      <associatedAttributeFeatures>
+        <attributeReference alias="PARTNERID_1" attributeName="PARTNERID"/>
+        <attributeReference alias="COMPANYNAME_1" attributeName="COMPANYNAME"/>
+      </associatedAttributeFeatures>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="PO" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="240"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="PO.Header" modelObjectNameSpace="PO" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="278.97265625"/>
+    </shape>
+    <shape modelObjectName="PO.Item" modelObjectNameSpace="PO" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="435" y="30"/>
+      <rectangleSize width="246.74609375"/>
+    </shape>
+    <shape modelObjectName="PO" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="208.8583984375"/>
+    </shape>
+    <shape modelObjectName="DCV_Products" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="172.58203125"/>
+    </shape>
+    <shape modelObjectName="DCV_BP" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="172.58203125"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

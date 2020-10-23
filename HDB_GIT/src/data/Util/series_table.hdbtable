@@ -1,0 +1,1 @@
+COLUMN TABLE testseries(id  INT, ts TIMESTAMP, val DOUBLE)

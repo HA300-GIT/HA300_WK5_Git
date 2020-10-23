@@ -1,0 +1,19 @@
+Code to create table "EPM_Customer"
+
+1. Go to the EPM_MODEL folder inside the src -- > data folder.
+2. Right click and create a New --> Database Artifact
+3. Enter the name as "EPM_Customer"
+4. Select the type as ".hdbtable"
+5. Copy the below code as it is
+
+COLUMN TABLE "EPM_Customer" (
+     "CUSTOMER_ID" NVARCHAR(10)  NOT NULL COMMENT 'Customer ID',
+	 "CUSTOMER_NAME1" NVARCHAR(30) COMMENT 'CUSTOMER_NAME1',
+	 "CUSTOMER_NAME2" NVARCHAR(10) COMMENT 'CUSTOMER_NAME2',
+	 "CUSTOMER_STREET" NVARCHAR(30) COMMENT 'Street',
+	 "CUSTOMER_CITY" NVARCHAR(30) COMMENT 'City',
+	 "CUSTOMER_STATE" NVARCHAR(10) COMMENT 'State',
+	 "CUSTOMER_COUNTRY" NVARCHAR(10) COMMENT 'State',
+	 "CUSTOMER_ZIP" INTEGER  COMMENT 'ZIP Code',
+	 PRIMARY KEY ("CUSTOMER_ID")) 
+	 COMMENT 'Customer Details'

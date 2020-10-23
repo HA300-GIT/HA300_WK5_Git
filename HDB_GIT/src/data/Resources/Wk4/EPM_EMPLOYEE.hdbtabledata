@@ -1,0 +1,47 @@
+{
+    "format_version": 1,
+    "imports": [
+            {
+            "target_table": "EPM_Employees",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "EPM_Employees.csv",
+                "has_header": true
+            },
+            "column_mappings": {
+            		"DNUMBER": 1,
+					"NAME": 2,
+					"REMAINDER_DAYS": 3
+            },
+            "import_settings": {
+                "import_columns": [
+                    "DNUMBER",
+					"NAME",
+					"REMAINDER_DAYS"
+                ]
+            }
+        },
+        {
+            "target_table": "EPM_Employee_hierarchy",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "EPM_Employee_hierarchy.csv",
+                "has_header": true
+            },
+            "column_mappings": {
+            		"PARENT_DNUMBER": 1,
+					"VALID_FROM": 2,
+					"VALID_TO": 3,
+					"CHILD_DNUMBER": 4
+            },
+            "import_settings": {
+                "import_columns": [
+                    "PARENT_DNUMBER",
+					"VALID_FROM",
+					"VALID_TO",
+					"CHILD_DNUMBER"
+                ]
+            }
+        }
+    ]
+}

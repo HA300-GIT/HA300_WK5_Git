@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVC_Sales_Order" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Summary of Sales order from two source systems"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SO.Header_copy">
+    <resourceUri>SO.Header_copy</resourceUri>
+  </DataSource>
+  <DataSource id="SALES_DATA">
+    <resourceUri>SALES_DATA</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="SAP_ERP_DATA">
+    <viewAttributes>
+      <viewAttribute id="SALESORDERID"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="GROSSAMOUNT" aggregationType="sum"/>
+      <viewAttribute id="NETAMOUNT" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="SO.Header_copy"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="3rd_PARTY_DATA">
+    <viewAttributes>
+      <viewAttribute id="SALESORDERID"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="SOURCE"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="NETAMOUNT" datatype="DECIMAL" length="15" scale="2" expressionLanguage="SQL">
+        <formula>&quot;AMOUNT&quot; * 0.9</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="GROSSAMOUNT_2" datatype="DECIMAL" length="15" scale="2" expressionLanguage="SQL">
+        <formula>&quot;AMOUNT&quot;</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+    <input node="SALES_DATA"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:MinusView" id="Minus_1">
+    <viewAttributes>
+      <viewAttribute id="SALESORDERID" aggregationType="sum"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="GROSSAMOUNT" aggregationType="sum"/>
+      <viewAttribute id="NETAMOUNT" aggregationType="sum"/>
+      <viewAttribute id="SOURCE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SAP_ERP_DATA">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALESORDERID" source="SALESORDERID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT" source="GROSSAMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NETAMOUNT" source="NETAMOUNT"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SOURCE" null="false" value="ERP"/>
+    </input>
+    <input node="3rd_PARTY_DATA">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALESORDERID" source="SALESORDERID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT" source="GROSSAMOUNT_2"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NETAMOUNT" source="NETAMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SOURCE" source="SOURCE"/>
+    </input>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Minus_1">
+  <attributes>
+    <attribute id="SALESORDERID" order="1">
+      <descriptions defaultDescription="Sales Order ID"/>
+      <keyMapping columnObjectName="Minus_1" columnName="SALESORDERID"/>
+    </attribute>
+    <attribute id="CURRENCY" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Currency"/>
+      <keyMapping columnObjectName="Minus_1" columnName="CURRENCY"/>
+    </attribute>
+    <attribute id="SOURCE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Source"/>
+      <keyMapping columnObjectName="Minus_1" columnName="SOURCE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="GROSSAMOUNT" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Gross Amount"/>
+      <measureMapping columnObjectName="Minus_1" columnName="GROSSAMOUNT"/>
+    </measure>
+    <measure id="NETAMOUNT" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Net Amount"/>
+      <measureMapping columnObjectName="Minus_1" columnName="NETAMOUNT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="221.11302679000914" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="SAP_ERP_DATA" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92.00000000000003" y="356.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="3rd_PARTY_DATA" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302.00000000000006" y="356.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Minus_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="221.11302679000914" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

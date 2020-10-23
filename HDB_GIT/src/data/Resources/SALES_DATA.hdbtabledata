@@ -1,0 +1,22 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "SALES_DATA",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "3rdpartysales.csv",
+                "has_header": true
+            },
+            "import_settings": {
+            	"include_filter" : [ ],            
+                "import_columns": [
+                    "SALESORDERID",
+					"CURRENCY",
+					"AMOUNT",
+					"SOURCE"
+					]
+            }
+        }
+        ]
+}

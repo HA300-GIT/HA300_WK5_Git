@@ -1,0 +1,31 @@
+{
+    "format_version": 1,
+    "imports": [
+            {
+            "target_table": "EPM_CUSTOMER_ORDERS",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "EPM_ORDERS.csv",
+                "has_header": false
+            },
+            "column_mappings": {
+				"ORDER_ID": 1,
+				"CUSTOMER_ID": 2,
+				"PRODUCT_ID": 3,
+				"ORDER_DATE": 4,
+				"ORDER_QTY": 5,
+				"AMOUNT": 6
+            },
+            "import_settings": {
+                "import_columns": [
+				"ORDER_ID",
+				"CUSTOMER_ID",
+				"PRODUCT_ID",
+				"ORDER_DATE",
+				"ORDER_QTY",
+				"AMOUNT"
+                ]
+            }
+        }
+    ]
+}

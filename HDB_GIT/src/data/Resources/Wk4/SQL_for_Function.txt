@@ -1,0 +1,19 @@
+FUNCTION "TF_FUZZY_EMPLOYEES"(LastNameFilter NVARCHAR(40))
+       RETURNS table
+       (
+		"NAME.FIRST" NVARCHAR(40),
+		"NAME.LAST" NVARCHAR(40),
+		"SEX" NVARCHAR(1),
+		"LANGUAGE" NVARCHAR(1),
+		"EMAILADDRESS" NVARCHAR(255)
+		)
+       LANGUAGE SQLSCRIPT 
+       SQL SECURITY INVOKER AS 
+BEGIN 
+    /*****************************
+        Write your function logic
+    ****************************/
+    RETURN
+    select "NAME.FIRST", "NAME.LAST", "SEX","LANGUAGE","EMAILADDRESS" from "MD.Employees"
+	where contains("NAME.LAST", :LastNameFilter, FUZZY(0.2));
+END

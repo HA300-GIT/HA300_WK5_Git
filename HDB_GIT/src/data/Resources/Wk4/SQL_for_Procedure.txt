@@ -1,0 +1,28 @@
+PROCEDURE "P_CUSTOMER_DISCOUNT"
+	(
+		IN discount Decimal(10, 2),
+		OUT out_with_discount table
+		(
+		"ORDER_ID" NVARCHAR(10),
+		"CUSTOMER_ID" NVARCHAR(10),
+		"PRODUCT_ID" NVARCHAR(10),
+		"ORDER_QTY" INT,
+		"AMOUNT" Decimal(10, 2),
+		"DISCOUNT_AMT" Decimal(10, 2),
+		"AMT_AFTER_DIS" Decimal(10, 2)
+		)
+	)
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   READS SQL DATA AS
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+	out_with_discount = SELECT 
+	ORDER_ID, CUSTOMER_ID,PRODUCT_ID,ORDER_QTY,AMOUNT,
+	cast((AMOUNT * :discount) as Decimal(10, 2)) AS DISCOUNT_AMT,
+	AMOUNT - cast((AMOUNT * :discount) as Decimal(10, 2)) AS AMT_AFTER_DIS
+	FROM "EPM_CUSTOMER_ORDERS";
+END;

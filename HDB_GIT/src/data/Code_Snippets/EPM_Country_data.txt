@@ -1,0 +1,14 @@
+INSERT INTO "EPM_Country" VALUES ('AU','Australia');
+INSERT INTO "EPM_Country" VALUES ('BR','Brazil');
+INSERT INTO "EPM_Country" VALUES ('BE','Belgium');
+INSERT INTO "EPM_Country" VALUES ('CA','Canada');
+INSERT INTO "EPM_Country" VALUES ('CH','Switzerland');
+INSERT INTO "EPM_Country" VALUES ('CR','Costa Rica');
+INSERT INTO "EPM_Country" VALUES ('CN','China');
+INSERT INTO "EPM_Country" VALUES ('EG','Egypt');
+INSERT INTO "EPM_Country" VALUES ('ES','Spain');
+INSERT INTO "EPM_Country" VALUES ('GB','United Kingdom');
+INSERT INTO "EPM_Country" VALUES ('HK','Hong Kong');
+INSERT INTO "EPM_Country" VALUES ('ID','Indonesia');
+INSERT INTO "EPM_Country" VALUES ('IN','India');
+INSERT INTO "EPM_Country" VALUES ('US','United States');

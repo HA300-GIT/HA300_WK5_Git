@@ -1,0 +1,5 @@
+COLUMN TABLE "FRUITS_DATA" (
+    "ID" INTEGER, 
+    "NAME" VARCHAR(20) 
+     )
+    COMMENT 'Fruits DATA TABLE'

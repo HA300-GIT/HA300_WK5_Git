@@ -1,0 +1,35 @@
+{
+    "format_version": 1,
+    "imports": [
+            {
+            "target_table": "EPM_SUPPLIERS",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "EPM_Suppliers.csv",
+                "has_header": false
+            },
+            "column_mappings": {
+            		"SUPPLIER_ID": 1,
+					"SUPPLIER_NAME1": 2,
+					"SUPPLIER_NAME2": 3,
+					"SUPPLIER_STREET": 4,
+					"SUPPLIER_CITY": 5,
+					"SUPPLIER_STATE": 6,
+					"SUPPLIER_COUNTRY": 7,
+					"SUPPLIER_ZIP": 8
+            },
+            "import_settings": {
+                "import_columns": [
+                    "SUPPLIER_ID",
+					"SUPPLIER_NAME1",
+					"SUPPLIER_NAME2",
+					"SUPPLIER_STREET",
+					"SUPPLIER_CITY",
+					"SUPPLIER_STATE",
+					"SUPPLIER_COUNTRY",
+					"SUPPLIER_ZIP"
+                ]
+            }
+        }
+    ]
+}

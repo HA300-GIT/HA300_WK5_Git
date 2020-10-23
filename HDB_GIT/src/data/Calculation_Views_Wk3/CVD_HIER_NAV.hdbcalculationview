@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVD_HIER_NAV" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Navigation"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CDV_HIER2">
+    <resourceUri>CDV_HIER2</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="generate">
+    <viewAttributes>
+      <viewAttribute id="HIERARCHY_RANK"/>
+      <viewAttribute id="HIERARCHY_TREE_SIZE"/>
+      <viewAttribute id="HIERARCHY_PARENT_RANK"/>
+      <viewAttribute id="HIERARCHY_LEVEL"/>
+      <viewAttribute id="HIERARCHY_IS_CYCLE"/>
+      <viewAttribute id="HIERARCHY_IS_ORPHAN"/>
+      <viewAttribute id="PARENT_ID"/>
+      <viewAttribute id="NODE_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CDV_HIER2"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:HierarchyView" id="navigate" function="HIERARCHY_DESCENDANTS">
+    <viewAttributes>
+      <viewAttribute datatype="INTEGER" id="HIERARCHY_DISTANCE"/>
+      <viewAttribute datatype="BIGINT" id="HIERARCHY_RANK" length="19"/>
+      <viewAttribute datatype="BIGINT" id="HIERARCHY_TREE_SIZE" length="19"/>
+      <viewAttribute datatype="BIGINT" id="HIERARCHY_PARENT_RANK" length="19"/>
+      <viewAttribute datatype="INTEGER" id="HIERARCHY_LEVEL" length="10"/>
+      <viewAttribute datatype="TINYINT" id="HIERARCHY_IS_CYCLE" length="3"/>
+      <viewAttribute datatype="TINYINT" id="HIERARCHY_IS_ORPHAN" length="3"/>
+      <viewAttribute datatype="NVARCHAR" length="3" id="PARENT_ID"/>
+      <viewAttribute datatype="NVARCHAR" length="2" id="NODE_ID"/>
+      <viewAttribute datatype="BIGINT" id="START_RANK"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="generate" type="generator">
+      <mapping xsi:type="Calculation:AttributeMapping" target="HIERARCHY_RANK" source="HIERARCHY_RANK"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="HIERARCHY_TREE_SIZE" source="HIERARCHY_TREE_SIZE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="HIERARCHY_PARENT_RANK" source="HIERARCHY_PARENT_RANK"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="HIERARCHY_LEVEL" source="HIERARCHY_LEVEL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="HIERARCHY_IS_CYCLE" source="HIERARCHY_IS_CYCLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="HIERARCHY_IS_ORPHAN" source="HIERARCHY_IS_ORPHAN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_ID" source="PARENT_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NODE_ID" source="NODE_ID"/>
+    </input>
+    <input node="Projection_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="START_RANK" source="HIERARCHY_RANK"/>
+    </input>
+    <hierarchyDescendantsParameterization>
+      <distanceFrom>0</distanceFrom>
+      <distanceTo>2</distanceTo>
+    </hierarchyDescendantsParameterization>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="HIERARCHY_RANK"/>
+      <viewAttribute id="HIERARCHY_TREE_SIZE"/>
+      <viewAttribute id="HIERARCHY_PARENT_RANK"/>
+      <viewAttribute id="HIERARCHY_LEVEL"/>
+      <viewAttribute id="HIERARCHY_IS_CYCLE"/>
+      <viewAttribute id="HIERARCHY_IS_ORPHAN"/>
+      <viewAttribute id="PARENT_ID"/>
+      <viewAttribute id="NODE_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="generate"/>
+    <filter>&quot;NODE_ID&quot;='B2'</filter>
+  </calculationView>
+</calculationViews>
+<logicalModel id="navigate">
+  <attributes>
+    <attribute id="HIERARCHY_DISTANCE" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_DISTANCE"/>
+      <keyMapping columnObjectName="navigate" columnName="HIERARCHY_DISTANCE"/>
+    </attribute>
+    <attribute id="HIERARCHY_DISTANCE_1" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_DISTANCE_1"/>
+      <keyMapping columnObjectName="navigate" columnName="HIERARCHY_DISTANCE"/>
+    </attribute>
+    <attribute id="HIERARCHY_RANK" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_RANK"/>
+      <keyMapping columnObjectName="navigate" columnName="HIERARCHY_RANK"/>
+    </attribute>
+    <attribute id="HIERARCHY_TREE_SIZE" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_TREE_SIZE"/>
+      <keyMapping columnObjectName="navigate" columnName="HIERARCHY_TREE_SIZE"/>
+    </attribute>
+    <attribute id="HIERARCHY_PARENT_RANK" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_PARENT_RANK"/>
+      <keyMapping columnObjectName="navigate" columnName="HIERARCHY_PARENT_RANK"/>
+    </attribute>
+    <attribute id="HIERARCHY_LEVEL" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_LEVEL"/>
+      <keyMapping columnObjectName="navigate" columnName="HIERARCHY_LEVEL"/>
+    </attribute>
+    <attribute id="HIERARCHY_IS_CYCLE" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_IS_CYCLE"/>
+      <keyMapping columnObjectName="navigate" columnName="HIERARCHY_IS_CYCLE"/>
+    </attribute>
+    <attribute id="HIERARCHY_IS_ORPHAN" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_IS_ORPHAN"/>
+      <keyMapping columnObjectName="navigate" columnName="HIERARCHY_IS_ORPHAN"/>
+    </attribute>
+    <attribute id="PARENT_ID" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PARENT_ID"/>
+      <keyMapping columnObjectName="navigate" columnName="PARENT_ID"/>
+    </attribute>
+    <attribute id="NODE_ID" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NODE_ID"/>
+      <keyMapping columnObjectName="navigate" columnName="NODE_ID"/>
+    </attribute>
+  
+    <attribute id="START_RANK" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="START_RANK"/>
+      <keyMapping columnObjectName="navigate" columnName="START_RANK"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="146" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="generate" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="128" y="527"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="navigate" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="146" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="416" y="316"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

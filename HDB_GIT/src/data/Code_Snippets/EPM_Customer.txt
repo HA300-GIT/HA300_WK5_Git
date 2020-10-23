@@ -1,0 +1,13 @@
+Code to create table "EPM_Country"
+
+1. Go to the EPM_MODEL folder inside the src -- > data folder.
+2. Right click and create a New --> Database Artifact
+3. Enter the name as "EPM_Country"
+4. Select the type as ".hdbtable"
+5. Copy the below code as it is
+
+COLUMN TABLE "EPM_Country" (
+     "COUNTRY_ID" NVARCHAR(2)  NOT NULL COMMENT 'Country ID',
+	 "COUNTRY_NAME" NVARCHAR(30) COMMENT 'COUNTRY_NAME',
+	 PRIMARY KEY ("COUNTRY_ID")) 
+	 COMMENT 'Country Details'

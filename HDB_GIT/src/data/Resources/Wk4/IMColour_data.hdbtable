@@ -1,0 +1,5 @@
+COLUMN TABLE "COLOURS_DATA" (
+    "ID" INTEGER, 
+    "NAME" VARCHAR(20) 
+     )
+    COMMENT 'Colours DATA TABLE'

@@ -1,0 +1,27 @@
+{
+    "format_version": 1,
+    "imports": [
+            {
+            "target_table": "EPM_PRODUCTS",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "EPM_Products.csv",
+                "has_header": false
+            },
+            "column_mappings": {
+            		"PRODUCT_ID": 1,
+					"PRODUCT_NAME": 2,
+					"PRODUCT_CAT": 3,
+					"PRODUCT_SUBCAT": 4
+            },
+            "import_settings": {
+                "import_columns": [
+                    "PRODUCT_ID",
+					"PRODUCT_NAME",
+					"PRODUCT_CAT",
+					"PRODUCT_SUBCAT"
+                ]
+            }
+        }
+    ]
+}

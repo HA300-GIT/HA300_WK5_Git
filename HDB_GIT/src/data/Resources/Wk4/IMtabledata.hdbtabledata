@@ -1,0 +1,45 @@
+{
+    "format_version": 1,
+    "imports": [
+            {
+            "target_table": "FRUITS_DATA",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "IMFruits_data.csv",
+                "has_header": true
+            },
+            "column_mappings": {
+            		"ID": 1,
+					"NAME": 2
+					
+            },
+            "import_settings": {
+                "import_columns": [
+                    "ID",
+					"NAME"
+					
+                ]
+            }
+        },
+        {
+            "target_table": "COLOURS_DATA",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "IMColour_data.csv",
+                "has_header": true
+            },
+            "column_mappings": {
+            		"ID": 1,
+					"NAME": 2
+					
+            },
+            "import_settings": {
+                "import_columns": [
+                    "ID",
+					"NAME"
+					
+                ]
+            }
+        }
+    ]
+}

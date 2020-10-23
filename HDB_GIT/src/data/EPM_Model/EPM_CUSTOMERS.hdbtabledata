@@ -1,0 +1,35 @@
+{
+    "format_version": 1,
+    "imports": [
+            {
+            "target_table": "EPM_Customer",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "EPM_CUSTOMERS.csv",
+                "has_header": false
+            },
+            "column_mappings": {
+            		"CUSTOMER_ID": 1,
+					"CUSTOMER_NAME1": 2,
+					"CUSTOMER_NAME2": 3,
+					"CUSTOMER_STREET": 4,
+					"CUSTOMER_CITY": 5,
+					"CUSTOMER_STATE": 6,
+					"CUSTOMER_COUNTRY": 7,
+					"CUSTOMER_ZIP": 8
+            },
+            "import_settings": {
+                "import_columns": [
+                    "CUSTOMER_ID",
+					"CUSTOMER_NAME1",
+					"CUSTOMER_NAME2",
+					"CUSTOMER_STREET",
+					"CUSTOMER_CITY",
+					"CUSTOMER_STATE",
+					"CUSTOMER_COUNTRY",
+					"CUSTOMER_ZIP"
+                ]
+            }
+        }
+    ]
+}

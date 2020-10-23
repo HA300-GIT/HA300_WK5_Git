@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="3.0" dataCategory="CUBE" cacheInvalidationPeriod="NONE" id="CVC_SALES_HIER" applyPrivilegeType="NONE" outputViewType="Aggregation" enforceSqlExecution="false">
+<descriptions defaultDescription="CVC_PR_LVL_HIER1"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="EPM_CUSTOMER_ORDERS">
+    <resourceUri>EPM_CUSTOMER_ORDERS</resourceUri>
+  </DataSource>
+  <DataSource id="CVD_Products_Hier">
+    <resourceUri>CVD_Products_Hier</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="referential">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="CUSTOMER_ID"/>
+      <viewAttribute id="ORDER_DATE"/>
+      <viewAttribute id="ORDER_QTY" aggregationType="sum"/>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="PRODUCT_ID"/>
+      <viewAttribute id="PRODUCT_NAME"/>
+      <viewAttribute id="PRODUCT_CAT"/>
+      <viewAttribute id="PRODUCT_SUBCAT"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="EPM_CUSTOMER_ORDERS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ID" source="CUSTOMER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_DATE" source="ORDER_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_QTY" source="ORDER_QTY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+    </input>
+    <input node="CVD_Products_Hier">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_NAME" source="PRODUCT_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_CAT" source="PRODUCT_CAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_SUBCAT" source="PRODUCT_SUBCAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+    </input>
+    <joinAttribute name="PRODUCT_ID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="ORDER_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Order ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="ORDER_ID"/>
+    </attribute>
+    <attribute id="CUSTOMER_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Customer ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTOMER_ID"/>
+    </attribute>
+    <attribute id="ORDER_DATE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Order Date"/>
+      <keyMapping columnObjectName="Join_1" columnName="ORDER_DATE"/>
+    </attribute>
+    <attribute id="PRODUCT_ID" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Product ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="PRODUCT_ID"/>
+    </attribute>
+    <attribute id="PRODUCT_NAME" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Product Name"/>
+      <keyMapping columnObjectName="Join_1" columnName="PRODUCT_NAME"/>
+    </attribute>
+    <attribute id="PRODUCT_CAT" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Product Category"/>
+      <keyMapping columnObjectName="Join_1" columnName="PRODUCT_CAT"/>
+    </attribute>
+    <attribute id="PRODUCT_SUBCAT" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Product Subcategory"/>
+      <keyMapping columnObjectName="Join_1" columnName="PRODUCT_SUBCAT"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="ORDER_QTY" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Order Quantity"/>
+      <measureMapping columnObjectName="Join_1" columnName="ORDER_QTY"/>
+    </measure>
+    <measure id="AMOUNT" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Order Amount"/>
+      <measureMapping columnObjectName="Join_1" columnName="AMOUNT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions>
+    <localDimension id="PROD_LEVEL_HIER">
+      <attributeRef xsi:type="DataFoundation:Attribute">PRODUCT_CAT</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">PRODUCT_SUBCAT</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">PRODUCT_NAME</attributeRef>
+      <hierarchies>
+        <hierarchy xsi:type="Dimension:LeveledHierarchy" id="PROD_LEVEL_HIER" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="LEVEL_NAME_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+          <descriptions defaultDescription="Product Level Hierarchy"/>
+          <unassignedMemberProperties mode="FALSE" name="FALSE"/>
+          <levels>
+            <level levelAttribute="PRODUCT_CAT" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="PRODUCT_CAT" sortDirection="ASC"/>
+            <level levelAttribute="PRODUCT_SUBCAT" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="PRODUCT_SUBCAT" sortDirection="ASC"/>
+            <level levelAttribute="PRODUCT_NAME" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="PRODUCT_NAME" sortDirection="ASC"/>
+          </levels>
+        </hierarchy>
+      </hierarchies>
+    </localDimension>
+  </localDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectNameSpace="MeasureGroup" modelObjectName="Output">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectNameSpace="CalculationView" modelObjectName="Join_1">
+      <upperLeftCorner x="100" y="230"/>
+      <rectangleSize width="160" height="30"/>
+    </shape>
+    <shape modelObjectName="EPM_CUSTOMER_ORDERS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="223.140625"/>
+    </shape>
+    <shape modelObjectName="CVD_Products_Hier" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="920" y="30"/>
+      <rectangleSize width="190.306640625"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

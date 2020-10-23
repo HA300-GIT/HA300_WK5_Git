@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="DCV_BP" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Business Partner"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="MD.BusinessPartner">
+    <resourceUri>MD.BusinessPartner</resourceUri>
+  </DataSource>
+  <DataSource id="MD.Contact">
+    <resourceUri>MD.Contact</resourceUri>
+  </DataSource>
+  <DataSource id="MD.EMAIL">
+    <resourceUri>MD.EMAIL</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="referential">
+    <viewAttributes>
+      <viewAttribute id="PARTNERID"/>
+      <viewAttribute id="COMPANYNAME"/>
+      <viewAttribute id="FIRST_NAME"/>
+      <viewAttribute id="LAST_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="MD.BusinessPartner">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PARTNERID" source="PARTNERID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPANYNAME" source="COMPANYNAME"/>
+    </input>
+    <input node="MD.Contact">
+      <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_NAME" source="FIRST_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LAST_NAME" source="LAST_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PARTNERID" source="PARTNER_GUID"/>
+    </input>
+    <joinAttribute name="PARTNERID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="C1_1" joinType="referential">
+    <viewAttributes>
+      <viewAttribute id="PARTNERID"/>
+      <viewAttribute id="COMPANYNAME"/>
+      <viewAttribute id="FIRST_NAME"/>
+      <viewAttribute id="LAST_NAME"/>
+      <viewAttribute id="EMAIL"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Join_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PARTNERID" source="PARTNERID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPANYNAME" source="COMPANYNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_NAME" source="FIRST_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LAST_NAME" source="LAST_NAME"/>
+    </input>
+    <input node="MD.EMAIL">
+      <mapping xsi:type="Calculation:AttributeMapping" target="EMAIL" source="EMAIL_GUID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PARTNERID" source="PARTNER_GUID"/>
+    </input>
+    <joinAttribute name="PARTNERID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_2">
+  <attributes>
+    <attribute id="PARTNERID" key="true" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Partner ID"/>
+      <keyMapping columnObjectName="Join_2" columnName="PARTNERID"/>
+    </attribute>
+    <attribute id="COMPANYNAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Company Name"/>
+      <keyMapping columnObjectName="Join_2" columnName="COMPANYNAME"/>
+    </attribute>
+    <attribute id="FIRST_NAME" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="First Name"/>
+      <keyMapping columnObjectName="Join_2" columnName="FIRST_NAME"/>
+    </attribute>
+    <attribute id="LAST_NAME" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Last Name"/>
+      <keyMapping columnObjectName="Join_2" columnName="LAST_NAME"/>
+    </attribute>
+    <attribute id="EMAIL" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Email Address"/>
+      <keyMapping columnObjectName="Join_2" columnName="EMAIL"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes>
+    <calculatedAttribute id="FULL_NAME" order="5" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Full_Name"/>
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="100">
+        <formula>&quot;FIRST_NAME&quot; || ' ' || &quot;LAST_NAME&quot;</formula>
+      </keyCalculation>
+      </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="357"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="MD.BusinessPartner" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="278.97265625"/>
+    </shape>
+    <shape modelObjectName="MD.Contact" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="221.08837890625"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="172.58203125"/>
+    </shape>
+    <shape modelObjectName="MD.EMAIL" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="171.1640625"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,25 @@
+{
+    "format_version": 1,
+    "imports": [
+            {
+            "target_table": "HIER_DATA",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "HIER_DATA.csv",
+                "has_header": true
+            },
+            "column_mappings": {
+            		"PARENT_ID": 1,
+					"NODE_ID": 2
+					
+            },
+            "import_settings": {
+                "import_columns": [
+                    "PARENT_ID",
+					"NODE_ID"
+					
+                ]
+            }
+        }
+    ]
+}

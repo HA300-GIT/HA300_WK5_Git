@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="DCV_Customers" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Dim_CV_Customers"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="EPM_Customer">
+    <resourceUri>EPM_Customer</resourceUri>
+  </DataSource>
+  <DataSource id="EPM_Country">
+    <resourceUri>EPM_Country</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="fullOuter">
+    <viewAttributes>
+      <viewAttribute id="CUSTOMER_ID"/>
+      <viewAttribute id="CUSTOMER_NAME1"/>
+      <viewAttribute id="CUSTOMER_NAME2"/>
+      <viewAttribute id="CUSTOMER_STREET"/>
+      <viewAttribute id="CUSTOMER_CITY"/>
+      <viewAttribute id="CUSTOMER_STATE"/>
+      <viewAttribute id="CUSTOMER_COUNTRY"/>
+      <viewAttribute id="CUSTOMER_ZIP"/>
+      <viewAttribute id="COUNTRY_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="EPM_Customer">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ID" source="CUSTOMER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_NAME1" source="CUSTOMER_NAME1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_NAME2" source="CUSTOMER_NAME2"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_STREET" source="CUSTOMER_STREET"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_CITY" source="CUSTOMER_CITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_STATE" source="CUSTOMER_STATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_COUNTRY" source="CUSTOMER_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ZIP" source="CUSTOMER_ZIP"/>
+    </input>
+    <input node="EPM_Country">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY_NAME" source="COUNTRY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_COUNTRY" source="COUNTRY_ID"/>
+    </input>
+    <joinAttribute name="CUSTOMER_COUNTRY"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="CUSTOMER_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Customer ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTOMER_ID"/>
+    </attribute>
+    <attribute id="CUSTOMER_NAME1" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTOMER_NAME1"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTOMER_NAME1"/>
+    </attribute>
+    <attribute id="CUSTOMER_NAME2" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTOMER_NAME2"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTOMER_NAME2"/>
+    </attribute>
+    <attribute id="CUSTOMER_STREET" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Street"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTOMER_STREET"/>
+    </attribute>
+    <attribute id="CUSTOMER_CITY" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="City"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTOMER_CITY"/>
+    </attribute>
+    <attribute id="CUSTOMER_STATE" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="State"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTOMER_STATE"/>
+    </attribute>
+    <attribute id="CUSTOMER_COUNTRY" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="State"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTOMER_COUNTRY"/>
+    </attribute>
+    <attribute id="COUNTRY_NAME" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COUNTRY_NAME"/>
+      <keyMapping columnObjectName="Join_1" columnName="COUNTRY_NAME"/>
+    </attribute>
+    <attribute id="CUSTOMER_ZIP" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ZIP Code"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTOMER_ZIP"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="66" y="255"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="EPM_Customer" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="209"/>
+    </shape>
+    <shape modelObjectName="EPM_Country" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="178"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
