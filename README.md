@@ -1,7 +1,7 @@
 # SAP HANA 2.0 SPS04 - HANA Core Modeling Data Files
 
 ### Summary
-The data files contain the base artifacts and will help developers to model core HANA artifacts on top of them. 
+The data files contain the base artifacts and will help developers to model core HANA artifacts on top of them. The project contains a database module only.
 
 ### Tools/Technologies used – 
 1. SAP Web IDE full stack for SAP HANA to develop both HDI (SAP HANA Deployment Infrastructure) and XSA (SAP HANA extended application services, advanced model)
@@ -28,6 +28,14 @@ The data files contain the base artifacts and will help developers to model core
 9. [Expose Entities Using OData and XSJS with SAP HANA XS Advanced](https://developers.sap.com/group.hana-xsjs-xsodata.html)
 10. [Collaborate with GitHub and SAP Web IDE](https://developers.sap.com/group.webide-github.html) (Hint: In case the push request fails, perform "rebase" request with the remote repository and then push the changes to github)
 11. [Extending your SAP HANA on-premise to SAP HANA Cloud](https://saphanajourney.com/hana-cloud/learning-track/16066/)
+12. [SAP HANA related Tutorials](https://developers.sap.com/tutorial-navigator.html?tag=products:technology-platform/sap-hana)
+13. [SAP HANA Cloud related Tutorials](https://developers.sap.com/tutorial-navigator.html?tag=products:technology-platform/sap-hana-cloud-services/sap-hana-cloud)
+14. [SAP WEB IDE related tutorials](https://developers.sap.com/tutorial-navigator.html?tag=products:technology-platform/sap-web-ide)
+15. [SAP HANA Developer Guide for SAP HANA XS Advanced Model](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.05/en-US/1547c14105be409ebfc3a9e9634a7188.html)
+16. [SAP HANA Administration Guide](https://help.sap.com/viewer/6b94445c94ae495c83a19646e7c3fd56/2.0.05/en-US/330e5550b09d4f0f8b6cceb14a64cd22.html)
+17. [SAP HANA SQLScript Reference](https://help.sap.com/viewer/de2486ee947e43e684d39702027f8a94/2.0.05/en-US/28f2d64d4fab4e789ee0070be418419d.html)
+18. [SAP HANA Security Guide](https://help.sap.com/viewer/b3ee5778bc2e4a089d3299b82ec762a7/2.0.05/en-US/c3d9889e3c9843bdb834e9eb56f1b041.html)
+19. [SAP HANA Core Data Services (CDS) Reference](https://help.sap.com/viewer/09b6623836854766b682356393c6c416/2.0.05/en-US/0b1eb07d74ec4f91947ff4cc4f557429.html)
 
 > #### Github Profile/repositories
 1. [Thomas Jung](https://github.com/jung-thomas)
