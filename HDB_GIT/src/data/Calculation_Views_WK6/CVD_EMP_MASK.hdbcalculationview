@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVD_EMP_MASK" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CVD_EMP_MASK"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="MD.Employees">
+    <resourceUri>MD.Employees</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<logicalModel id="MD.Employees">
+  <attributes>
+    <attribute id="EMPLOYEEID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Employee ID"/>
+      <keyMapping columnObjectName="MD.Employees" columnName="EMPLOYEEID"/>
+    </attribute>
+    <attribute id="NAME_FIRST" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="First or Given Name"/>
+      <keyMapping columnObjectName="MD.Employees" columnName="NAME.FIRST"/>
+    </attribute>
+    <attribute id="NAME_LAST" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Family Name"/>
+      <keyMapping columnObjectName="MD.Employees" columnName="NAME.LAST"/>
+    </attribute>
+    <attribute id="PHONENUMBER" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Primary Phone Number"/>
+      <keyMapping columnObjectName="MD.Employees" columnName="PHONENUMBER"/>
+    </attribute>
+    <attribute id="ACCOUNTNUMBER" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Bank Account Number"/>
+      <maskingExpression>'XXX-XXX' || RIGHT(&quot;ACCOUNTNUMBER&quot;, 3)</maskingExpression>
+      <keyMapping columnObjectName="MD.Employees" columnName="ACCOUNTNUMBER"/>
+    </attribute>
+    <attribute id="BANKID" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Bank ID"/>
+      <keyMapping columnObjectName="MD.Employees" columnName="BANKID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

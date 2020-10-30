@@ -1,0 +1,14 @@
+{
+  "role": {
+    "name": "EMP_UNMASK",
+    "object_privileges": [
+      {
+        "name": "CVD_EMP_MASK",
+        "type": "VIEW",
+        "privileges": [
+          "UNMASKED"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+COLUMN TABLE "EMPL_SALARY_HISTORICAL" (
+  "Year" NVARCHAR(4) NOT NULL , 
+  "EmployeeID" NVARCHAR(4) NOT NULL, 
+  "TotalSalary" Decimal(10, 2),
+  PRIMARY KEY ("Year", "EmployeeID" )
+ ) 

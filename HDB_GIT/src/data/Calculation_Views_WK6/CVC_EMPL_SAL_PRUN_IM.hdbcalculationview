@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVC_EMPL_SAL_PRUN_IM" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false" pruningTable="EMP_PRUN">
+<descriptions defaultDescription="CVC_EMPL_SAL_PRUN"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="EMPL_SALARY_CURRENT">
+    <resourceUri>EMPL_SALARY_CURRENT</resourceUri>
+  </DataSource>
+  <DataSource id="EMPL_SALARY_HISTORICAL">
+    <resourceUri>EMPL_SALARY_HISTORICAL</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <viewAttributes>
+      <viewAttribute id="Year" aggregationType="sum"/>
+      <viewAttribute id="EmployeeID" aggregationType="sum"/>
+      <viewAttribute id="TotalSalary" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="EMPL_SALARY_CURRENT" emptyUnionBehavior="NO_ROW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="Year" source="Year"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EmployeeID" source="EmployeeID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TotalSalary" source="TotalSalary"/>
+    </input>
+    <input node="EMPL_SALARY_HISTORICAL" emptyUnionBehavior="NO_ROW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="Year" source="Year"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EmployeeID" source="EmployeeID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TotalSalary" source="TotalSalary"/>
+    </input>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Union_1">
+  <attributes>
+    <attribute id="Year" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Year"/>
+      <keyMapping columnObjectName="Union_1" columnName="Year"/>
+    </attribute>
+    <attribute id="EmployeeID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="EmployeeID"/>
+      <keyMapping columnObjectName="Union_1" columnName="EmployeeID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="TotalSalary" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="TotalSalary"/>
+      <measureMapping columnObjectName="Union_1" columnName="TotalSalary"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="60" y="256"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

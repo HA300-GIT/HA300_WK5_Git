@@ -5,7 +5,8 @@
       {
         "schema_reference": "HA300_WK5_GIT_HDI_HDB_GIT_1",
         "names": [
-          "admin"
+          "admin",
+          "EMP_UNMASK"
         ]
       }
     ]

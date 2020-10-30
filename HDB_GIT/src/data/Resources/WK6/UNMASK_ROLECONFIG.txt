@@ -1,0 +1,7 @@
+{
+  "UNMASK_ROLE": {
+    "HA300_TRAINING_HDI_HANACLOUD_1": {
+      "schema": "HA300_TRAINING_HDI_HANACLOUD_1"
+    }
+  }
+}

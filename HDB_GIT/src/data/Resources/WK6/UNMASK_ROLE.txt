@@ -1,0 +1,13 @@
+{
+  "role": {
+  "name": "UNMASK_ROLE",
+    "schema_privileges": [
+      {
+        "reference": "HA300_TRAINING_HDI_HANACLOUD_1",
+        "privileges": [
+          "UNMASKED"
+         ]
+      }
+    ]
+  }
+} 
